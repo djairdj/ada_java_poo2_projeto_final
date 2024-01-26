@@ -4,8 +4,9 @@ import domain.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class TaskRepository implements Crud<Task, Long> {
+public class TaskRepository implements Crud<Task, Integer> {
   private final List<Task> list;
 
   public TaskRepository() {
@@ -33,7 +34,7 @@ public class TaskRepository implements Crud<Task, Long> {
   }
 
   @Override
-  public Task listOne(Long id) {
+  public Task getOne(Integer id) {
     return null;
   }
 
@@ -43,7 +44,14 @@ public class TaskRepository implements Crud<Task, Long> {
   }
 
   @Override
-  public Task deleteOne(Long id) {
+  public Task deleteOne(Integer id) {
+    for(int i = 0; i < this.list.size(); i++) {
+      var task = this.list.get(i);
+      if(Objects.equals(task.getId(), id)) {
+        list.remove(i);
+        return task;
+      }
+    }
     return null;
   }
 }
