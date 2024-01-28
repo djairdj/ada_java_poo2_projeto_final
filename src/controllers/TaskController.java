@@ -89,13 +89,13 @@ public class TaskController {
           System.out.println("Escolha uma opção acima");
           opt = scan.nextLine().trim();
           switch(opt) {
-            case "1" -> task = createTask();
-            case "2" -> task = createStudyTask();
-            case "3" -> task = createWorkTask();
             case "0" -> {
               System.out.println("Encerrada a inclusão.");
               break loop;
             }
+            case "1" -> task = createTask();
+            case "2" -> task = createStudyTask();
+            case "3" -> task = createWorkTask();
             default -> System.out.println("Opção inválida!");
           }
         }
