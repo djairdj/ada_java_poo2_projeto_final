@@ -30,7 +30,14 @@ public class TaskRepository implements Crud<Task, Integer> {
 
   @Override
   public List<Task> getAll() {
-    return this.list.subList(0, this.list.size());
+    List<Task> result = new ArrayList<>();
+    for(Task task : this.list) {
+      try {
+        result.add(task.clone());
+      } catch(CloneNotSupportedException ignored) {
+      }
+    }
+    return result;
   }
 
   @Override
