@@ -22,4 +22,14 @@ public class TaskService {
     } else System.out.println("Objeto recebido nulo.");
   }
 
+  public Task deleteTask(String id) {
+    try {
+      Integer identifier = Integer.parseInt(id);
+      return repository.deleteOne(identifier);
+    } catch(NumberFormatException ignored) {
+      System.out.println("Não foi possível remover uma tarefa com esse id");
+    }
+    return null;
+  }
+
 }
