@@ -45,7 +45,10 @@ public class TaskRepository implements Crud<Task, Integer> {
   public Task getOne(Integer id) {
     for(Task task : this.list) {
       if(Objects.equals(task.getId(), id)) {
-        return task;
+        try {
+          return task.clone();
+        } catch(CloneNotSupportedException ignored) {
+        }
       }
     }
     return null;
