@@ -7,7 +7,7 @@ public interface Crud<T, I> {
 
   List<T> getAll();
 
-  T listOne(I id);
+  T getOne(I id);
 
   T updateOne(T element);
 
