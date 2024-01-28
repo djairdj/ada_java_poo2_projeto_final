@@ -1,25 +1,26 @@
 package domain;
 
-import java.util.UUID;
-
-public class Task {
-  protected UUID id;
+public class Task implements Cloneable {
+  private static Integer serial = 0;
+  protected Integer id;
   protected String description;
   protected String status;
 
   public Task(String description, String status) {
+    this();
     this.description = description;
     this.status = status;
   }
 
   public Task() {
+    this.id = ++serial;
   }
 
-  public UUID getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(UUID id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -47,5 +48,10 @@ public class Task {
     sb.append(", status='").append(status).append('\'');
     sb.append('}');
     return sb.toString();
+  }
+
+  @Override
+  public Task clone() throws CloneNotSupportedException {
+    return (Task) super.clone();
   }
 }

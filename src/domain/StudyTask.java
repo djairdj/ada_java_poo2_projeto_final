@@ -26,4 +26,9 @@ public class StudyTask extends Task {
     sb.append('}');
     return sb.toString();
   }
+
+  @Override
+  public StudyTask clone() throws CloneNotSupportedException {
+    return (StudyTask) super.clone();
+  }
 }
