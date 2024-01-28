@@ -15,7 +15,7 @@ public class TaskRepository implements Crud<Task, Integer> {
 
   public TaskRepository(List<Task> list) {
     if(list == null) list = new ArrayList<>();
-    this.list = list;
+    this.list = new ArrayList<>(list);
   }
 
   public List<Task> getList() {
@@ -55,7 +55,7 @@ public class TaskRepository implements Crud<Task, Integer> {
     for(int i = 0; i < this.list.size(); i++) {
       var task = this.list.get(i);
       if(Objects.equals(task.getId(), id)) {
-        list.remove(i);
+        this.list.remove(i);
         return task;
       }
     }
