@@ -12,14 +12,14 @@ public class TaskController {
 
   public void menu() {
     String menu = """
-        ______ Menu Principal _____
+        ______ Menu Principal ______
         | 0 - Sair                 |
         | 1 - Listar tarefas       |
         | 2 - Listar uma tarefa    |
         | 3 - Atualizar uma tarefa |
         | 4 - Apagar uma tarefa    |
         | 5 - Criar uma tarefa     |
-        '''''''''''''''''''''''''''
+        ''''''''''''''''''''''''''''
         """;
     String option = "";
     while(!option.equals("0")) {
@@ -62,7 +62,7 @@ public class TaskController {
       int n = Integer.parseInt(opt.replaceAll("[,.]", ""));
 
       String subMenu = """
-           ___ Tipos de Tarefas ___
+          __ Tipos de Tarefas __
           | 1 - BaseTask
           | 2 - StudyTask
           | 3 - Sair
@@ -116,4 +116,12 @@ public class TaskController {
     return task;
   }
 
+  private void deleteTask() {
+    System.out.println("Informe o id da tarefa que pretendes apagar: ");
+    String id = scan.nextLine().trim();
+    Task taskDeleted = service.deleteTask(id);
+    if(taskDeleted != null) {
+      System.out.println("Task deletada com sucesso.");
+    } else System.out.println("Não foi possível deletar.");
+  }
 }
