@@ -49,4 +49,8 @@ public class TaskService {
     }
     return null;
   }
+
+  public Task updateOneTask(Task task) {
+    return this.repository.updateOne(task);
+  }
 }

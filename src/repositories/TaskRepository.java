@@ -1,5 +1,6 @@
 package repositories;
 
+import domain.StudyTask;
 import domain.Task;
 
 import java.util.ArrayList;
@@ -52,6 +53,16 @@ public class TaskRepository implements Crud<Task, Integer> {
 
   @Override
   public Task updateOne(Task element) {
+    for(Task task : this.list) {
+      if(Objects.equals(task.getId(), element.getId())) {
+        task.setDescription(element.getDescription());
+        task.setStatus(element.getStatus());
+        if(element instanceof StudyTask) {
+          ((StudyTask) task).setSubject(((StudyTask) element).getSubject());
+        }
+        return task;
+      }
+    }
     return null;
   }
 

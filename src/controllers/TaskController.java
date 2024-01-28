@@ -46,7 +46,7 @@ public class TaskController {
           getOneTask();
           break;
         case "3":
-          System.out.println("Opção de atualizar uma tarefa.");
+          updateOne();
           break;
         case "4":
           deleteTask();
@@ -119,7 +119,7 @@ public class TaskController {
     String status, description;
     System.out.println("Informe a descrição da Task");
     description = scan.nextLine().trim();
-    System.out.println("Informe o status da StudyTask");
+    System.out.println("Informe o status da Task");
     status = scan.nextLine().trim();
     Task task = new Task(description, status);
     return task;
@@ -133,6 +133,46 @@ public class TaskController {
       System.out.println("A seguinte task foi encontrada:");
       System.out.println(task);
     } else System.out.println("Não foi possível obter a task a partir do id informado.");
+  }
+
+  public void updateOne() {
+    System.out.print("Informe o id da tarefa que pretendes atualizar: ");
+    String id = scan.nextLine().trim();
+    Task task = service.getOneTask(id);
+    if(task != null) {
+      boolean modified = false;
+      System.out.println("A seguinte task foi encontrada:");
+      System.out.println(task);
+      String status, description;
+      System.out.println("Informe a descrição da Task");
+      description = scan.nextLine().trim();
+      System.out.println("Informe o status da Task");
+      status = scan.nextLine().trim();
+      if(!description.isBlank()) {
+        task.setDescription(description);
+        modified = true;
+      }
+      if(!status.isBlank()) {
+        task.setStatus(status);
+        modified = true;
+      }
+      if(task instanceof StudyTask) {
+        System.out.println("Informe o assunto da StudyTask");
+        String subject = scan.nextLine().trim();
+        if(!subject.isBlank()) {
+          ((StudyTask) task).setSubject(subject);
+          modified = true;
+        }
+      }
+      if(modified) {
+        Task taskUpdated = this.service.updateOneTask(task);
+        if(taskUpdated != null) {
+          System.out.println("Tarefa atualizada com sucesso.");
+        } else {
+          System.out.println("Não foi possível atualizar essa tarefa.");
+        }
+      } else System.out.println("Sem dados válidos para modificação.");
+    } else System.out.println("Não foi possível obter a tarefa a partir do id informado.");
   }
 
   private void deleteTask() {
