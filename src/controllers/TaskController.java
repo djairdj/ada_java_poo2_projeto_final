@@ -4,11 +4,20 @@ import domain.StudyTask;
 import domain.Task;
 import services.TaskService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class TaskController {
   private final Scanner scan = new Scanner(System.in);
-  private final TaskService service = new TaskService();
+  private final TaskService service;
+
+  public TaskController() {
+    this.service = new TaskService();
+  }
+
+  public TaskController(List<Task> list) {
+    this.service = new TaskService(list);
+  }
 
   public void menu() {
     String menu = """
@@ -40,7 +49,7 @@ public class TaskController {
           System.out.println("Opção de atualizar uma tarefa.");
           break;
         case "4":
-          System.out.println("Opção de apagar uma tarefa.");
+          deleteTask();
           break;
         case "5":
           createTasks();
@@ -121,7 +130,8 @@ public class TaskController {
     String id = scan.nextLine().trim();
     Task taskDeleted = service.deleteTask(id);
     if(taskDeleted != null) {
-      System.out.println("Task deletada com sucesso.");
+      System.out.println("A seguinte task foi deletada com sucesso:");
+      System.out.println(taskDeleted);
     } else System.out.println("Não foi possível deletar.");
   }
 }
