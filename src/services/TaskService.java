@@ -6,7 +6,15 @@ import repositories.TaskRepository;
 import java.util.List;
 
 public class TaskService {
-  private final TaskRepository repository = new TaskRepository();
+  private final TaskRepository repository;
+
+  public TaskService() {
+    this.repository = new TaskRepository();
+  }
+
+  public TaskService(List<Task> list) {
+    this.repository = new TaskRepository(list);
+  }
 
   public void listTasks() {
     List<Task> list = this.repository.getAll();
