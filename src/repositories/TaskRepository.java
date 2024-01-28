@@ -19,10 +19,6 @@ public class TaskRepository implements Crud<Task, Integer> {
     this.list = new ArrayList<>(list);
   }
 
-  public List<Task> getList() {
-    return this.list;
-  }
-
   @Override
   public Task create(Task element) {
     this.list.add(element);
