@@ -19,7 +19,7 @@ public class TaskService {
   public void listTasks() {
     List<Task> list = this.repository.getAll();
     if(list.isEmpty()) System.out.println("Lista vazia");
-    else System.out.println(list);
+    else list.forEach(System.out::println);
   }
 
   public void createTask(Task task) {
