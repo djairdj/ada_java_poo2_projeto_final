@@ -2,6 +2,7 @@ package controllers;
 
 import domain.StudyTask;
 import domain.Task;
+import domain.WorkTask;
 import services.TaskService;
 
 import java.util.List;
@@ -72,9 +73,10 @@ public class TaskController {
 
       String subMenu = """
           __ Tipos de Tarefas __
+          | 0 - Sair
           | 1 - BaseTask
           | 2 - StudyTask
-          | 3 - Sair
+          | 3 - WorkTask
            """;
       Task task;
       loop:
@@ -82,14 +84,15 @@ public class TaskController {
         task = null;
         opt = "";
         System.out.printf("Incluindo %dª tarefa:%n", i);
-        while(!opt.equals("2") && !opt.equals("1")) {
+        while(!opt.equals("2") && !opt.equals("1") && !opt.equals("3")) {
           System.out.println(subMenu);
           System.out.println("Escolha uma opção acima");
           opt = scan.nextLine().trim();
           switch(opt) {
             case "1" -> task = createTask();
             case "2" -> task = createStudyTask();
-            case "3" -> {
+            case "3" -> task = createWorkTask();
+            case "0" -> {
               System.out.println("Encerrada a inclusão.");
               break loop;
             }
@@ -101,6 +104,18 @@ public class TaskController {
     } catch(NumberFormatException ignored) {
       System.out.println("O valor '" + opt + "' não é válido.");
     }
+  }
+
+  private WorkTask createWorkTask() {
+    String status, description, setor;
+    System.out.println("Informe a descrição da WorkTask");
+    description = scan.nextLine().trim();
+    System.out.println("Informe o setor da WorkTask");
+    setor = scan.nextLine().trim();
+    System.out.println("Informe o status da WorkTask");
+    status = scan.nextLine().trim();
+    WorkTask workTask = new WorkTask(description, status, setor);
+    return workTask;
   }
 
   private StudyTask createStudyTask() {
@@ -161,6 +176,13 @@ public class TaskController {
         String subject = scan.nextLine().trim();
         if(!subject.isBlank()) {
           ((StudyTask) task).setSubject(subject);
+          modified = true;
+        }
+      } else if(task instanceof WorkTask) {
+        System.out.println("Informe o setor da WorkTask");
+        String setor = scan.nextLine().trim();
+        if(!setor.isBlank()) {
+          ((WorkTask) task).setSetor(setor);
           modified = true;
         }
       }
