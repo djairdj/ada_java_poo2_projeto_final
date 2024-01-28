@@ -43,7 +43,7 @@ public class TaskController {
           listTasks();
           break;
         case "2":
-          System.out.println("Opção de listar uma tarefa.");
+          getOneTask();
           break;
         case "3":
           System.out.println("Opção de atualizar uma tarefa.");
@@ -123,6 +123,16 @@ public class TaskController {
     status = scan.nextLine().trim();
     Task task = new Task(description, status);
     return task;
+  }
+
+  public void getOneTask() {
+    System.out.println("Informe o id da tarefa que pretendes listar: ");
+    String id = scan.nextLine().trim();
+    Task task = service.getOneTask(id);
+    if(task != null) {
+      System.out.println("A seguinte task foi encontrada:");
+      System.out.println(task);
+    } else System.out.println("Não foi possível obter a task a partir do id informado.");
   }
 
   private void deleteTask() {

@@ -40,4 +40,13 @@ public class TaskService {
     return null;
   }
 
+  public Task getOneTask(String id) {
+    try {
+      Integer identifier = Integer.parseInt(id);
+      return repository.getOne(identifier);
+    } catch(NumberFormatException ignored) {
+      System.out.println("Não foi possível obter uma tarefa com esse id");
+    }
+    return null;
+  }
 }
